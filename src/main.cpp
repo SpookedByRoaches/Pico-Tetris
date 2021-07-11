@@ -15,6 +15,7 @@
 int *args = (int *)malloc(6);
 
 #define begin_pin 15
+#define ADC_SEED 26
 
 Tetris game;
 
@@ -22,15 +23,24 @@ Tetris game;
 int main()
 {
     stdio_init_all();
+    sleep_ms(1000);
     gpio_init(begin_pin);
-
+    
+    adc_init();
+    adc_gpio_init(ADC_SEED);
+    adc_select_input(0);
     gpio_set_dir(begin_pin, GPIO_IN);
 
     gpio_pull_up(begin_pin);
 
-    sleep_ms(3000);
+    printf("HX8357D Test!\n");
 
-    printf("HX8357D Test!\n"); 
+    uint32_t seed = adc_read();
+    srand(seed);
+
+    
+    printf("Random seed = %lu\n", seed);
+
     game.startGame();
     game.placeTetrimino(J);
 
@@ -38,7 +48,7 @@ int main()
         if (!gpio_get(begin_pin)){
             game.moveTetrimino(down);
             while(!gpio_get(begin_pin));
-            sleep_ms(100);
+            //sleep_ms(100);
         }
 }
 

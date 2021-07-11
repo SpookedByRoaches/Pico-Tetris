@@ -26,6 +26,8 @@ int main()
 
     gpio_set_dir(button_pin, GPIO_IN);
 
+    gpio_pull_up(button_pin);
+
     sleep_ms(3000);
 
     //gpio_init(25);
@@ -34,9 +36,9 @@ int main()
     game.placeTetrimino(J);
 
     while(true)
-        if (gpio_get(button_pin)){
+        if (!gpio_get(button_pin)){
             game.moveTetrimino(down);
-            while(gpio_get(button_pin));
+            while(!gpio_get(button_pin));
             sleep_ms(100);
         }
 }

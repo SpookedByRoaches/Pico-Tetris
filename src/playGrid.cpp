@@ -8,7 +8,7 @@ playGrid::playGrid(int squareLengthPixels = 20, int gridWidthPixels = 320,
 {
     numSquaresHorz = gridWidthPixels/squareLengthPixels;
     numSquaresVert = gridHeightPixels/squareLengthPixels;
-    squareStatusArray = (uint8_t*) malloc(numSquaresHorz*numSquaresVert);
+    squareStatusArray = (uint8_t*) memset(malloc(numSquaresHorz*numSquaresVert), empty, numSquaresHorz*numSquaresVert);
     showGrid = showGrid;
     tickPeriodMillis = 1500;
 

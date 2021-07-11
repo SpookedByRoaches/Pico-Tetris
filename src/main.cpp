@@ -14,7 +14,7 @@
 
 int *args = (int *)malloc(6);
 
-#define button_pin 15
+#define begin_pin 15
 
 Tetris game;
 
@@ -22,23 +22,22 @@ Tetris game;
 int main()
 {
     stdio_init_all();
-    gpio_init(button_pin);
+    gpio_init(begin_pin);
 
-    gpio_set_dir(button_pin, GPIO_IN);
+    gpio_set_dir(begin_pin, GPIO_IN);
 
-    gpio_pull_up(button_pin);
+    gpio_pull_up(begin_pin);
 
     sleep_ms(3000);
 
-    //gpio_init(25);
     printf("HX8357D Test!\n"); 
     game.startGame();
     game.placeTetrimino(J);
 
     while(true)
-        if (!gpio_get(button_pin)){
+        if (!gpio_get(begin_pin)){
             game.moveTetrimino(down);
-            while(!gpio_get(button_pin));
+            while(!gpio_get(begin_pin));
             sleep_ms(100);
         }
 }

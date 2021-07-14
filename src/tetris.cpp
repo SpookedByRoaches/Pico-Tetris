@@ -8,6 +8,11 @@ Tetris::Tetris()
                  0, 0, 1);
 }
 
+void Tetris::setButtons(int downButton, int rightButton, int leftButton, int rotButton, int holdButton, int pauseButton)
+{
+    TetrisController controller(downButton, rightButton, leftButton, rotButton, holdButton, pauseButton);
+}
+
 void Tetris::placeTetrimino(shape type)
 {
     int yPosGrid = 1;
@@ -39,7 +44,16 @@ void Tetris::drawTetrimino(int color, Tetrimino *drawTarget)
 
 void Tetris::startGame()
 {
+    adc_init();
+    adc_gpio_init(ADC_SEED);
+    adc_select_input(0);
+    uint32_t seed = to_us_since_boot(get_absolute_time());
+    srand(seed);
+
     grid->drawGrid(GREEN);
+
+    generateTetrimino();
+    placeTetrimino(nextShape);   
 }
 
 void Tetris::rotateTetrimino()
@@ -137,4 +151,16 @@ void Tetris::moveTetrimino(enum MovementDirection direction)
 void Tetris::generateTetrimino()
 {
     nextShape = (shape)(random()%8);
+}
+
+void Tetris::pollInput()
+{
+    uint64_t startPoll = to_us_since_boot(get_absolute_time());
+
+    int whichButton;
+    while(!(whichButton = controller.whichPressed()) && ((to_us_since_boot(get_absolute_time()) - startPoll) < tickPeriodMicros));
+
+    if (whichButton){
+
+    }
 }

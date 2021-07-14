@@ -14,8 +14,14 @@
 
 int *args = (int *)malloc(6);
 
-#define begin_pin 15
-#define ADC_SEED 26
+#define rightButton 14
+#define downButton 15
+#define leftButton 16
+#define rotButton 17
+#define holdButton 18
+#define pauseButton 19
+
+
 
 Tetris game;
 
@@ -23,26 +29,15 @@ Tetris game;
 int main()
 {
     stdio_init_all();
-    sleep_ms(1000);
-    gpio_init(begin_pin);
+    //sleep_ms(1000);
     
-    adc_init();
-    adc_gpio_init(ADC_SEED);
-    adc_select_input(0);
-    gpio_set_dir(begin_pin, GPIO_IN);
-
-    gpio_pull_up(begin_pin);
-
+    
     printf("HX8357D Test!\n");
 
-    uint32_t seed = adc_read();
-    srand(seed);
-
     
-    printf("Random seed = %lu\n", seed);
-
+    game.setButtons(downButton, rightButton, leftButton, rotButton, holdButton, pauseButton);
     game.startGame();
-    game.placeTetrimino(J);
+    
 
     while(true)
         if (!gpio_get(begin_pin)){
@@ -50,37 +45,4 @@ int main()
             while(!gpio_get(begin_pin));
             //sleep_ms(100);
         }
-}
-
-void loop() 
-{
-/*
-  String myInput;
-  String secondThing;
-  //int color, argColor, argX, argY;
-  
-
-  
-  while(Serial.available() > 0){
-    myInput = Serial.readStringUntil(',');
-
-    secondThing = Serial.readStringUntil('\n');
-
-    if (myInput == "R")
-      for (int i = 0; i < secondThing.toInt(); i++)
-        game.moveTetrimino(right);
-
-    else if(myInput == "D")
-      for (int i = 0; i < secondThing.toInt(); i++)
-        game.moveTetrimino(down);
-      
-    else if(myInput == "L") 
-      for (int i = 0; i < secondThing.toInt(); i++)
-        game.moveTetrimino(left);
-
-    else if(myInput == "RT")
-      for (int i = 0; i < secondThing.toInt(); i++)
-        game.rotateTetrimino();
-  }
-  */
 }

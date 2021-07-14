@@ -3,6 +3,7 @@
 
 #include "playGrid.h"
 #include "tetrimino.h"
+#include "tetrisController.h"
 
 #define BLACK    0x0000
 #define BLUE     0x001F
@@ -40,6 +41,7 @@ private:
     uint64_t tickPeriodMillis;
     shape nextShape;
     playGrid *grid;
+    TetrisController controller;
 
 };
 

@@ -29,7 +29,7 @@ Tetris game;
 int main()
 {
     stdio_init_all();
-    //sleep_ms(1000);
+    sleep_ms(3000);
     
     
     printf("HX8357D Test!\n");
@@ -40,9 +40,5 @@ int main()
     
 
     while(true)
-        if (!gpio_get(begin_pin)){
-            game.moveTetrimino(down);
-            while(!gpio_get(begin_pin));
-            //sleep_ms(100);
-        }
+        game.pollInput();
 }

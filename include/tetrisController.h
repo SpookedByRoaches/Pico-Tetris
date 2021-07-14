@@ -1,10 +1,12 @@
+#ifndef TETRISCONTROLLER_H
+#define TETRISCONTROLLER_H
 #include <stdlib.h>
 #include <wizio.h>
 #include "playGrid.h"
-#include "tetris.h"
 
 
-enum input {
+
+enum input{
     in_down, in_right, in_left, in_rot, in_hold, in_pause
 };
 
@@ -17,3 +19,4 @@ public:
 private:
     uint32_t inputPinsMask;
 };
+#endif //TETRISCONTROLLER_H

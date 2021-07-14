@@ -53,10 +53,6 @@ public:
     bool isHittingSide(int *newLocations);
     void deactivate(int *newLocations);
     int getNumSquaresHorz(), getNumSquaresVert();
-
-    
-
-
 private:
     int squareLengthPixels,
     numSquaresHorz, 

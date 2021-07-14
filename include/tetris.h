@@ -14,6 +14,8 @@
 #define YELLOW   0xFFE0 
 #define WHITE    0xFFFF
 
+#define ADC_SEED 25
+
 
 
 enum MovementDirection{
@@ -33,16 +35,17 @@ public:
     void moveTetrimino(enum MovementDirection direction);
     void drawTetrimino(int color, Tetrimino *drawTarget);
     void generateTetrimino();
+    void setButtons(int downButton, int rightButton, int leftButton, int rotButton, int holdButton, int pauseButton);
+    void pollInput();
 
     Tetrimino *piece;
 
 private:
     int numTetriminos;
-    uint64_t tickPeriodMillis;
+    uint64_t tickPeriodMicros;
     shape nextShape;
     playGrid *grid;
-    TetrisController controller;
-
+    TetrisController *controller;
 };
 
 #endif //TETRIS_H

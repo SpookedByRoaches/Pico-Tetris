@@ -21,23 +21,34 @@ void TetrisController::initPins()
 
 int TetrisController::whichPressed()
 {
-    int button;
+    int *button;
+
+    button = (int *)memset(malloc(4), 0, 4);
+
+    printf("which one\n");
 
     if (!gpio_get(downButton)){
-        button = downButton;
+        *button = downButton;
     } else if (!gpio_get(rightButton)){
-        button = rightButton;
+        *button = rightButton;
     } else if (!gpio_get(leftButton)){
-        button = leftButton;
+        *button = leftButton;
     } else if (!gpio_get(rotButton)){
-        button = rotButton;
+        *button = rotButton;
     } else if (!gpio_get(pauseButton)){
-        button = pauseButton;
+        *button = pauseButton;
     } else if (!gpio_get(holdButton)){
-        button = holdButton;
+        *button = holdButton;
     }
 
-    while(!gpio_get(button));
+    printf("pressed %d\n", *button);
 
-    return button;
+    if (*button)
+        while(!gpio_get(*button));
+    else
+        return 0;
+
+    
+
+    return *button;
 }

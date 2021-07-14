@@ -53,6 +53,7 @@ void Tetris::startGame()
     grid->drawGrid(GREEN);
 
     generateTetrimino();
+
     placeTetrimino(nextShape);   
 }
 
@@ -158,9 +159,16 @@ void Tetris::pollInput()
     uint64_t startPoll = to_us_since_boot(get_absolute_time());
 
     int whichButton;
-    while(!(whichButton = controller.whichPressed()) && ((to_us_since_boot(get_absolute_time()) - startPoll) < tickPeriodMicros));
+    while(!(whichButton = controller->whichPressed()) /*&& ((to_us_since_boot(get_absolute_time()) - startPoll) < tickPeriodMicros)*/);
 
     if (whichButton){
+        if (whichButton == controller->downButton)
+            moveTetrimino(down);
 
+        else if (whichButton == controller->rightButton)
+            moveTetrimino(right);
+
+        else if (whichButton == controller->leftButton)
+            moveTetrimino(left);
     }
 }

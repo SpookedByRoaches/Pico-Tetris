@@ -10,7 +10,8 @@ Tetris::Tetris()
 
 void Tetris::setButtons(int downButton, int rightButton, int leftButton, int rotButton, int holdButton, int pauseButton)
 {
-    TetrisController controller(downButton, rightButton, leftButton, rotButton, holdButton, pauseButton);
+    controller = new TetrisController(downButton, rightButton, leftButton, rotButton, holdButton, pauseButton);
+    controller->initPins();
 }
 
 void Tetris::placeTetrimino(shape type)
@@ -170,5 +171,8 @@ void Tetris::pollInput()
 
         else if (whichButton == controller->leftButton)
             moveTetrimino(left);
+            
+        else if (whichButton == controller->rotButton)
+            rotateTetrimino();
     }
 }
